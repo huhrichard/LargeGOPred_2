@@ -86,7 +86,10 @@ if args.hpc:
     script = open(data + '.lsf','w')
     script.write('#!/bin/bash\n#BSUB -P acc_pandeg01a\n#BSUB -q %s\n#BSUB -J %s\n#BSUB -W %s\n#BSUB -R rusage[mem=%s]\n#BSUB -n %s\n#BSUB -sp 100\n' %(args.queue,data,args.time,args.memory,args.node))
     script.write('#BSUB -o %s.%%J.stdout\n#BSUB -eo %s.%%J.stderr\n#BSUB -L /bin/bash\n' %(data,data))
-    script.write('module load python\nmodule load py_packages\nmodule load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
+    script.write(
+        # 'module load python\n'+
+        # 'module load py_packages\n'
+        'module load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
     script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx10g\"\n')
     script.write('mpirun selfsched < %s.jobs\n' %data)
     script.write('python combine.py %s\n' %abspath(args.path))

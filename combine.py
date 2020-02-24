@@ -40,6 +40,7 @@ for fold in range(fold_count):
 		except:
 			print('###### file %s not found or crashed .............' % filename)
 			nested_fold_dfs.append(concat(bag_dfs, axis = 1))
+		print('Length of nested_fold_dfs: ',len(nested_fold_dfs))
 		dirname_dfs.append(concat(nested_fold_dfs, axis = 0))
 	fn = '%s/validation-%s.csv.gz' % (path, fold)
 	concat(dirname_dfs, axis = 1).sort_index().to_csv(fn,compression='gzip')

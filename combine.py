@@ -52,7 +52,7 @@ for fold in range(fold_count):
 		bag_dfs = []
 		for bag in range(bag_count):
 			filename = '%s/predictions-%s-%02i.csv.gz' % (dirname, fold, bag)
-		df = read_csv(filename, comment="#", index_col = [0, 1], compression = 'gzip')
+			df = read_csv(filename, comment="#", index_col = [0, 1], compression = 'gzip')
 			df = df[['prediction']]
 			df.rename(columns = {'prediction': '%s.%s' % (classifier, bag)}, inplace = True)
 			bag_dfs.append(df)

@@ -19,3 +19,4 @@ if __name__ == "__main__":
     for go_file in file_list:
         python_cmd = 'python train_base.py {}'.format(go_file)
         print(python_cmd)
+        system(python_cmd)

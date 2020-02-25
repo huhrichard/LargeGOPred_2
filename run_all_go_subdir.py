@@ -17,6 +17,6 @@ def find_dir(pattern, path):
 if __name__ == "__main__":
     file_list = find_dir('GO*',sys.argv[-1])
     for go_file in file_list:
-        python_cmd = 'python train_base.py {}'.format(go_file)
+        python_cmd = 'python train_base.py --path {}'.format(go_file)
         print(python_cmd)
         system(python_cmd)

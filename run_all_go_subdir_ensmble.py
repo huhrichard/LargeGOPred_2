@@ -43,16 +43,16 @@ def find_dir(pattern, path):
 
 if __name__ == "__main__":
     # file_list = find_dir('GO*',sys.argv[-1])
-    file_list = find_dir('GO*', args.path)
-    for go_file in file_list:
-        data = go_file.split('/')[-1]
+    dir_list = find_dir('GO*', args.path)
+    for go_dir in dir_list:
+        data = go_dir.split('/')[-1] + '_ensemble'
         print('submitting largeGOPred ensemble job to hpc...')
         ####### Write the lsf file
         script = open(data + '.lsf', 'w')
         script.write(
             '#!/bin/bash\n#BSUB -P acc_pandeg01a\n#BSUB -q %s\n#BSUB -J %s\n#BSUB -W %s\n#BSUB -R rusage[mem=%s]\n#BSUB -n %s\n#BSUB -sp 100\n' % (
-            args.queue, data + '_ensemble', args.time, args.memory, args.node))
-        script.write('#BSUB -o %s.%%J.stdout\n#BSUB -eo %s.%%J.stderr\n#BSUB -L /bin/bash\n' % (data+ '_ensemble', data+ '_ensemble'))
+            args.queue, data, args.time, args.memory, args.node))
+        script.write('#BSUB -o %s.%%J.stdout\n#BSUB -eo %s.%%J.stderr\n#BSUB -L /bin/bash\n' % (data, data))
         script.write('module purge')
         script.write('conda activate largegopred')
         # script.write(
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         #     'module load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
         # script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx10g\"\n')
         script.write('mpirun selfsched < %s.jobs\n' % data)
-        script.write('python ensemble.py --path {}'.format(go_file))
+        script.write('python ensemble.py --path {}'.format(go_dir))
         script.write('rm %s.jobs' % data)
         script.close()
         ####### Submit the lsf job and remove lsf script

@@ -60,7 +60,7 @@ if __name__ == "__main__":
         #     # 'module load py_packages\n'
             'module load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
         # script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx10g\"\n')
-        script.write('mpirun selfsched < %s.jobs\n' % data)
+        # script.write('mpirun selfsched < %s.jobs\n' % data)
         python_cmd = 'python ensemble.py --path {}'.format(go_dir)
         print(python_cmd)
         script.write(python_cmd)

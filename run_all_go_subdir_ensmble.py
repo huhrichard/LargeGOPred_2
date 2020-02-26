@@ -31,7 +31,7 @@ def find_dir(pattern, path):
     # for root, dirs, files in os.walk(path):
     dirs = os.listdir(path)
     for dir in dirs:
-        print(dir)
+        # print(dir)
         if fnmatch.fnmatch(dir, pattern):
             result.append(abspath(os.path.join(path, dir)))
 

@@ -156,18 +156,18 @@ def main(path,fold_count=5,agg=1):
     dn = abspath(path).split('/')[-1]
     cols = ['data_name','fmax','method']
     dfs = []
-    print '[CES] Start building model #################################'
+    print('[CES] Start building model #################################')
     ces = CES_fmax(path,fold_count,agg)
-    print '[CES] Finished evaluating model ############################'
-    print '[CES] F-max score is %s.' %ces
-    print '[Mean] Start building model ################################'
+    print('[CES] Finished evaluating model ############################')
+    print('[CES] F-max score is %s.' %ces)
+    print('[Mean] Start building model ################################')
     mean = mean_fmax(path,fold_count,agg)
-    print '[Mean] Finished evaluating model ###########################'
-    print '[Mean] F-max score is %s.' %mean
-    print '[Best Base] Start building model ###########################'
+    print('[Mean] Finished evaluating model ###########################')
+    print("[Mean] F-max score is %s." % mean)
+    print('[Best Base] Start building model ###########################')
     bestbase = bestbase_fmax(path,fold_count,agg)
-    print '[Best Base] Finished evaluating model ######################'
-    print '[Best Base] F-max score is %s.' %bestbase
+    print('[Best Base] Finished evaluating model ######################')
+    print('[Best Base] F-max score is %s.' %bestbase)
     dfs.append(pd.DataFrame(data = [[dn,ces,'CES']],columns=cols,index = [0]))
     dfs.append(pd.DataFrame(data = [[dn,mean,'Mean']],columns=cols,index = [0]))
     dfs.append(pd.DataFrame(data = [[dn,bestbase,'best base']],columns=cols,index = [0]))
@@ -178,17 +178,17 @@ def main(path,fold_count=5,agg=1):
     tol=0.001, verbose=False),GaussianNB(),LogisticRegression(),AdaBoostClassifier(),DecisionTreeClassifier(),GradientBoostingClassifier(loss='deviance'),KNeighborsClassifier()]
     stacker_names = ["RF.S","SVM.S","NB.S","LR.S","AB.S","DT.S","LB.S","KNN.S"]
     for i,(stacker_name,stacker) in enumerate(zip(stacker_names,stackers)):
-        print '[%s] Start building model ################################' %(stacker_name)
+        print('[%s] Start building model ################################' %(stacker_name))
         predictions_dfs = [stacked_generalization(path,stacker_name,stacker,fold,agg) for fold in range(fold_count)]
         predictions_df = pd.concat(predictions_dfs)
         fmax = common.fmax_score(predictions_df.label, predictions_df.prediction)
-	print '[%s] Finished evaluating model ###########################' %(stacker_name)
-        print '[%s] F-max score is %s.' %(stacker_name,fmax)
-	df = pd.DataFrame(data = [[dn,fmax,stacker_name]],columns=cols, index = [0])
+        print('[%s] Finished evaluating model ###########################' %(stacker_name))
+        print('[%s] F-max score is %s.' %(stacker_name,fmax))
+        df = pd.DataFrame(data = [[dn,fmax,stacker_name]],columns=cols, index = [0])
         dfs.append(df)
     dfs = pd.concat(dfs)
     # Save results
-    print 'Saving results #############################################'
+    print('Saving results #############################################')
     if not exists('%s/analysis' %path):
         mkdir('%s/analysis' %path)
     dfs.to_csv("%s/analysis/performance.csv" %path, index = False)

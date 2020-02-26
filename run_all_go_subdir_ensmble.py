@@ -60,11 +60,11 @@ if __name__ == "__main__":
         #     # 'module load py_packages\n'
             'module load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
         script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx10g\"\n')
-        script.write('mpirun selfsched < %s.jobs\n' % data)
+        # script.write('mpirun selfsched < %s.jobs\n' % data)
         python_cmd = 'python ensemble.py --path {}\n'.format(go_dir)
         print(python_cmd)
         script.write(python_cmd)
-        script.write('rm %s.jobs' % data)
+        # script.write('rm %s.jobs' % data)
         script.close()
         ####### Submit the lsf job and remove lsf script
         system('bsub < %s.lsf' % data)

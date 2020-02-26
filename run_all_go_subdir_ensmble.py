@@ -28,11 +28,12 @@ args = parser.parse_args()
 
 def find_dir(pattern, path):
     result = []
-    for root, dirs, files in os.walk(path):
-        for dir in dirs:
-            print(dir)
-            if fnmatch.fnmatch(dir, pattern):
-                result.append(abspath(os.path.join(path, dir)))
+    # for root, dirs, files in os.walk(path):
+    dirs = os.listdir(path)
+    for dir in dirs:
+        print(dir)
+        if fnmatch.fnmatch(dir, pattern):
+            result.append(abspath(os.path.join(path, dir)))
 
     return result
 

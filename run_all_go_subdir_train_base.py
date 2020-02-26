@@ -7,10 +7,14 @@ import glob
 
 def find_dir(pattern, path):
     result = []
-    for root, dirs, files in os.walk(path):
-        for dir in dirs:
-            if fnmatch.fnmatch(dir, pattern):
-                result.append(abspath(os.path.join(path, dir)))
+    # for root, dirs, files in os.walk(path):
+    dirs = os.listdir(path)
+    for dir in dirs:
+        # print(dir)
+        if fnmatch.fnmatch(dir, pattern):
+            result_dir = abspath(os.path.join(path, dir))
+            print(result_dir)
+            result.append(result_dir)
 
     return result
 

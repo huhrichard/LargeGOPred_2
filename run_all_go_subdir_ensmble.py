@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # file_list = find_dir('GO*',sys.argv[-1])
     dir_list = find_dir('GO*', args.path)
     for go_dir in dir_list:
-        data = go_dir.split('/')[-1] + '_ensemble'
+        data = go_dir.split('/')[-1]
         print('submitting largeGOPred ensemble job to hpc...')
         ####### Write the lsf file
         script = open(data + '.lsf', 'w')

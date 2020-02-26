@@ -6,6 +6,14 @@ from os.path import abspath
 import glob
 import argparse
 
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 parser = argparse.ArgumentParser(description='Feed some bsub parameters')
 parser.add_argument('--path', '-P', type=str, required=True, help='data path')
 parser.add_argument('--queue', '-Q', type=str, default='premium', help='LSF queue to submit the job')
@@ -26,6 +34,8 @@ def find_dir(pattern, path):
                 result.append(abspath(os.path.join(path, dir)))
 
     return result
+
+
 
 if __name__ == "__main__":
     file_list = find_dir('GO*',sys.argv[-1])

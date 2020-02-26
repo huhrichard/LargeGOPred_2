@@ -4,6 +4,7 @@ from os import remove, system
 from os.path import abspath
 
 import glob
+import argparse
 
 parser = argparse.ArgumentParser(description='Feed some bsub parameters')
 parser.add_argument('--path', '-P', type=str, required=True, help='data path')

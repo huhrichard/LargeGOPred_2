@@ -92,7 +92,7 @@ if args.hpc:
         # 'module load python\n'+
         # 'module load py_packages\n'
         'module load java\nmodule load groovy\nmodule load selfsched\nmodule load weka\n')
-    script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx10g\"\n')
+    script.write('export _JAVA_OPTIONS=\"-XX:ParallelGCThreads=10\"\nexport JAVA_OPTS=\"-Xmx15g\"\n')
     script.write('mpirun selfsched < %s.jobs\n' %data)
     script.write('python combine.py %s\n' %abspath(args.path))
     script.write('rm %s.jobs' %data)

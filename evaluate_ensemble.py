@@ -32,6 +32,9 @@ def extract_df_by_method(df, method='', drop_columns=['method']):
     return_df.drop(drop_columns, axis=1, inplace=True)
     return return_df
 
+def add_colon(str):
+    return str[:2]+':'+str[2:]
+
 if __name__ == "__main__":
 
     # Load all performance csv
@@ -44,6 +47,7 @@ if __name__ == "__main__":
     performance_df = pd.concat(performance_df_list)
 
     godag = get_godag("go-basic.obo")
+    performance_df['data_name'] = performance_df['data_name'].apply(add_colon)
     go_terms_set = set(list(performance_df['data_name']))
     gosubdag = GoSubDag(go_terms_set, godag)
     performance_df['go_level'] = 0
